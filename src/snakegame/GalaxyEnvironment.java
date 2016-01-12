@@ -27,6 +27,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
     private ArrayList<Barrier> barriers;
     private Level space;
     private ArrayList<Item> items;
+    
 
     public GalaxyEnvironment() {
         this.setBackground(Color.white);
@@ -92,8 +93,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(52, 0, Color.GRAY, true, this));
         barriers.add(new Barrier(53, 0, Color.GRAY, true, this));
         barriers.add(new Barrier(54, 0, Color.GRAY, true, this));
-        
-    
+
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Left Vertical barriers">
         barriers.add(new Barrier(0, 1, Color.GRAY, true, this));
@@ -215,13 +215,13 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(54, 1, Color.GRAY, true, this));
         barriers.add(new Barrier(54, 0, Color.GRAY, true, this));
 //</editor-fold>
-       
-        
+
         items = new ArrayList<>();
-        items.add(new Item(10, 5,"POWER_UP", 
-                ResourceTools.loadImageFromResource("snakegame/Level_9.jpg"),
+        items.add(new Item(10, 5, "POWER_UP",
+                ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                 this));
     }
+
     @Override
     public void initializeEnvironment() {
 
@@ -240,7 +240,8 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
             if (moveDelay >= moveDelayLimit) {
                 moveDelay = 0;
                 wrath.move();
-                if (wrath.selfHit()){
+                if (wrath.selfHit()) {
+                    background = ResourceTools.loadImageFromResource("snakegame/Snake_Death 2.jpg");
                     //System.out.println("OUCH, curses.....");
                     wrath.addHealth(-1000000);
                     wrath.setBodyColor(Color.yellow);
@@ -260,6 +261,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                     //put own logic here
                     wrath.addHealth(-1000000);
                     wrath.setBodyColor(Color.yellow);
+                    background = ResourceTools.loadImageFromResource("snakegame/Snake_Death 2.jpg");
 
                 }
             }
@@ -284,7 +286,6 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         else if (e.getKeyCode() == KeyEvent.VK_1) {
             space.setLevel(1);
         } else if (e.getKeyCode() == KeyEvent.VK_2) {
-            System.out.println("Second Galaxy");
             space.setLevel(2);
         } else if (e.getKeyCode() == KeyEvent.VK_3) {
             space.setLevel(3);
@@ -340,11 +341,13 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 
             }
         }
-        if(items != null){
+        if (items != null) {
             for (int i = 0; i < items.size(); i++) {
                 items.get(i).draw(graphics);
             }
         }
+     
+
     }
 
 //<editor-fold defaultstate="collapsed" desc="Barrier Implementations">

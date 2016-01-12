@@ -16,9 +16,8 @@ import java.util.ArrayList;
  * @author Camille
  */
 public class Snake {
-    //Doesn't respect grid boundaries
-    //Moves too fast
-    //Doesn't respect self-collision
+    //When dead will begin to move again in one minute
+    //Doesn't respect item collision
 
     public Snake(Direction direction, Grid grid) {
         this.direction = direction;
