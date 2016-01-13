@@ -220,6 +220,15 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         items.add(new Item(10, 5, "POWER_UP",
                 ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                 this));
+        items.add(new Item(18,22,"POWER_UP",
+                ResourceTools.loadImageFromResource("snakegame/1up.png"),
+                this));
+        items.add(new Item(22,26,"POWER_UP",
+                ResourceTools.loadImageFromResource("snakegame/star 2.png"),
+                this));
+        items.add(new Item(18,12,"POWER_UP",
+                ResourceTools.loadImageFromResource("snakegame/bonbon1.gif-c200 2"),
+                this));                
     }
 
     @Override
