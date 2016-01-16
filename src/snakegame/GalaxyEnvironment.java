@@ -30,7 +30,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
     
 
     public GalaxyEnvironment() {
-        this.setBackground(Color.white);
+        this.setBackground((new Color(213, 213, 213)));
 
         grid = new Grid(55, 30, 20, 20, new Point(50, 100), new Color(46, 139, 87, 128));
         wrath = new Snake(Direction.RIGHT, grid);
@@ -95,6 +95,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(54, 0, Color.GRAY, true, this));
 
 //</editor-fold>
+        
 //<editor-fold defaultstate="collapsed" desc="Left Vertical barriers">
         barriers.add(new Barrier(0, 1, Color.GRAY, true, this));
         barriers.add(new Barrier(0, 2, Color.GRAY, true, this));
@@ -126,6 +127,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(0, 28, Color.GRAY, true, this));
         barriers.add(new Barrier(0, 29, Color.GRAY, true, this));
 //</editor-fold>
+
 //<editor-fold defaultstate="collapsed" desc="bottom horizontal barriers">
         barriers.add(new Barrier(0, 29, Color.GRAY, true, this));
         barriers.add(new Barrier(1, 29, Color.GRAY, true, this));
@@ -183,6 +185,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(53, 29, Color.GRAY, true, this));
         barriers.add(new Barrier(54, 29, Color.GRAY, true, this));
 //</editor-fold>
+
 //<editor-fold defaultstate="collapsed" desc="right vertical barriers">
         barriers.add(new Barrier(54, 29, Color.GRAY, true, this));
         barriers.add(new Barrier(54, 28, Color.GRAY, true, this));
@@ -220,13 +223,13 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         items.add(new Item(10, 5, "POWER_UP",
                 ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                 this));
-        items.add(new Item(18,22,"POWER_UP",
+        items.add(new Item(18,22,"EXTRA_LIFE",
                 ResourceTools.loadImageFromResource("snakegame/1up.png"),
                 this));
-        items.add(new Item(22,26,"POWER_UP",
+        items.add(new Item(22,26,"IMMORTAL",
                 ResourceTools.loadImageFromResource("snakegame/star 2.png"),
                 this));
-        items.add(new Item(18,12,"POWER_UP",
+        items.add(new Item(18,12,"INSTANT_DEATH",
                 ResourceTools.loadImageFromResource("snakegame/bonbon1.gif-c200 2"),
                 this));                
     }
@@ -250,10 +253,11 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                 moveDelay = 0;
                 wrath.move();
                 if (wrath.selfHit()) {
-                    background = ResourceTools.loadImageFromResource("snakegame/Snake_Death 2.jpg");
                     //System.out.println("OUCH, curses.....");
                     wrath.addHealth(-1000000);
                     wrath.setBodyColor(Color.yellow);
+                    AudioPlayer.play("/snakegame/Raven-SoundBible.com-1790882934.wav");
+                    space.setLevel(Level.LEVEL_DEATH);
                 }
             } else {
                 moveDelay++;
@@ -263,20 +267,49 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 
     }
 
+    
     public void checkIntersections() {
         if (barriers != null) {
             for (int i = 0; i < barriers.size(); i++) {
                 if (barriers.get(i).getLocation().equals(wrath.getHead())) {
                     //put own logic here
-                    wrath.addHealth(-1000000);
+                    wrath.addHealth(-1000000000);
                     wrath.setBodyColor(Color.yellow);
-                    background = ResourceTools.loadImageFromResource("snakegame/Snake_Death 2.jpg");
-
+                    space.setLevel(Level.LEVEL_DEATH);
+                    AudioPlayer.play("/snakegame/Raven-SoundBible.com-1790882934.wav");
                 }
             }
         }
 
+        
+        
+        if (items != null) {
+            for (Item item : items){
+                if (item.getLocation().equals(wrath.getHead())) {
+                    AudioPlayer.play("/snakegame/Electrical_Sweep-Sweeper-1760111493.wav");
+                    if (Math.random() > .5){
+                        wrath.addHealth(1000000);
+                        System.out.println("1_UP");
+                    } else {
+                        wrath.addHealth(2000000);
+                        System.out.println("2_UP"); 
+                    AudioPlayer.play("/snakegame/Electrical_Sweep-Sweeper-1760111493.wav");
+                        
+                    }
+                    if (Math.random() < .1){
+                        wrath.addHealth(-100000000);
+                        System.out.println("HELP MEEEE");
+                    AudioPlayer.play("/snakegame/Electrical_Sweep-Sweeper-1760111493.wav");
+                        
+                    }
+        
+                }
+            }
+        }
+        
+        
     }
+
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
@@ -294,25 +327,33 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         } //<editor-fold defaultstate="collapsed" desc="Galaxy stuff">
         else if (e.getKeyCode() == KeyEvent.VK_1) {
             space.setLevel(1);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_2) {
             space.setLevel(2);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_3) {
             space.setLevel(3);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_4) {
             space.setLevel(4);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_5) {
             space.setLevel(5);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_6) {
             space.setLevel(6);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_7) {
             space.setLevel(7);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_8) {
             space.setLevel(8);
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_9) {
-            space.setLevel(9);
+            space.setLevel(9);            
+            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             space.setLevel(10);
-        } else if (e.getKeyCode() == KeyEvent.VK_0) {
             AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         }
 //</editor-fold>
@@ -320,9 +361,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 
     @Override
     public void keyReleasedHandler(KeyEvent e) {
-//        if (e.getKeyCode()== KeyEvent.VK_1){
-//            this.setBackground(Level_1.jpg);
-//        }
+
     }
 
     @Override
@@ -383,4 +422,5 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 
     }
 //</editor-fold>
+
 }

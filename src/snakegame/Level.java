@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
  */
 public class Level {
     
+    public static int LEVEL_DEATH = -1;
+    
     
     public Level(int level){
         setLevel(level);
@@ -62,7 +64,8 @@ public class Level {
             background = ResourceTools.loadImageFromResource("snakegame/Level_9.jpg");
         } else if (level == 10) {
             background = ResourceTools.loadImageFromResource("snakegame/Level_10.jpg");
+        } else {
+            background = ResourceTools.loadImageFromResource("snakegame/snake_death.jpg");
         }
-        
     }
 }

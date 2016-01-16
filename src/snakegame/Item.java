@@ -7,6 +7,7 @@ package snakegame;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 
 /**
  *
@@ -38,6 +39,13 @@ public class Item {
     private String type;
     private Image image;
     private CellDataProviderintf cellData;
+
+    /**
+     * @return the point of the object
+     */
+    public Point getLocation() {
+        return new Point(x, y);
+    }
     /**
      * @return the x
      */
