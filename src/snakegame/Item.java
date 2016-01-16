@@ -35,6 +35,12 @@ public class Item {
     }
     
 //<editor-fold defaultstate="collapsed" desc="Properites">
+    public static final String ITEM_TYPE_POWER_UP = "POWER_UP";
+    public static final String ITEM_TYPE_INSTANT_DEATH = "INSTANT_DEATH";
+    
+    
+    
+    
     private int x, y;
     private String type;
     private Image image;

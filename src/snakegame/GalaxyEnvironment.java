@@ -27,7 +27,6 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
     private ArrayList<Barrier> barriers;
     private Level space;
     private ArrayList<Item> items;
-    
 
     public GalaxyEnvironment() {
         this.setBackground((new Color(213, 213, 213)));
@@ -95,7 +94,6 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(54, 0, Color.GRAY, true, this));
 
 //</editor-fold>
-        
 //<editor-fold defaultstate="collapsed" desc="Left Vertical barriers">
         barriers.add(new Barrier(0, 1, Color.GRAY, true, this));
         barriers.add(new Barrier(0, 2, Color.GRAY, true, this));
@@ -220,18 +218,18 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 //</editor-fold>
 
         items = new ArrayList<>();
-        items.add(new Item(10, 5, "POWER_UP",
+        items.add(new Item(10, 5, Item.ITEM_TYPE_POWER_UP,
                 ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                 this));
-        items.add(new Item(18,22,"EXTRA_LIFE",
+        items.add(new Item(18, 22, "EXTRA_LIFE",
                 ResourceTools.loadImageFromResource("snakegame/1up.png"),
                 this));
-        items.add(new Item(22,26,"IMMORTAL",
+        items.add(new Item(22, 26, "IMMORTAL",
                 ResourceTools.loadImageFromResource("snakegame/star 2.png"),
                 this));
-        items.add(new Item(18,12,"INSTANT_DEATH",
+        items.add(new Item(18, 12, "INSTANT_DEATH",
                 ResourceTools.loadImageFromResource("snakegame/bonbon1.gif-c200 2"),
-                this));                
+                this));
     }
 
     @Override
@@ -267,7 +265,6 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 
     }
 
-    
     public void checkIntersections() {
         if (barriers != null) {
             for (int i = 0; i < barriers.size(); i++) {
@@ -281,35 +278,23 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
             }
         }
 
-        
-        
         if (items != null) {
-            for (Item item : items){
+            for (Item item : items) {
                 if (item.getLocation().equals(wrath.getHead())) {
-                    AudioPlayer.play("/snakegame/Electrical_Sweep-Sweeper-1760111493.wav");
-                    if (Math.random() > .5){
-                        wrath.addHealth(1000000);
+                    if (item.getType().equals(Item.ITEM_TYPE_POWER_UP)) {
+                        //add points..
+                    } else if (item.getType().equals(Item.ITEM_TYPE_INSTANT_DEATH)) {
+                        wrath.setHealth(-1);
+                        item.setX(-10000);
+                        AudioPlayer.play("/snakegame/electricity.wav");
                         System.out.println("1_UP");
-                    } else {
-                        wrath.addHealth(2000000);
-                        System.out.println("2_UP"); 
-                    AudioPlayer.play("/snakegame/Electrical_Sweep-Sweeper-1760111493.wav");
-                        
                     }
-                    if (Math.random() < .1){
-                        wrath.addHealth(-100000000);
-                        System.out.println("HELP MEEEE");
-                    AudioPlayer.play("/snakegame/Electrical_Sweep-Sweeper-1760111493.wav");
-                        
-                    }
-        
+
                 }
             }
         }
-        
-        
-    }
 
+    }
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
@@ -350,7 +335,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
             space.setLevel(8);
             AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_9) {
-            space.setLevel(9);            
+            space.setLevel(9);
             AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             space.setLevel(10);
@@ -394,7 +379,6 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                 items.get(i).draw(graphics);
             }
         }
-     
 
     }
 
