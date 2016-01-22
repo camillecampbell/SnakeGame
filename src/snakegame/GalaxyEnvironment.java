@@ -218,16 +218,16 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 //</editor-fold>
 
         items = new ArrayList<>();
-        items.add(new Item(10, 5, Item.ITEM_TYPE_POWER_UP,
+        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_TYPE_POWER_UP,
                 ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                 this));
-        items.add(new Item(18, 22, Item.ITEM_TYPE_EXTRA_LIFE,
+        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_TYPE_EXTRA_LIFE,
                 ResourceTools.loadImageFromResource("snakegame/1up.png"),
                 this));
-        items.add(new Item(22, 26, Item.ITEM_TYPE_INSTANT_DEATH,
+        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_TYPE_INSTANT_DEATH,
                 ResourceTools.loadImageFromResource("snakegame/star 2.png"),
                 this));
-        items.add(new Item(18, 12, Item.ITEM_TYPE_IMMORTAL,
+        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_DELETE_ENEMY,
                 ResourceTools.loadImageFromResource("snakegame/bonbon1.gif-c200 2"),
                 this));
     }
@@ -254,7 +254,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                     //System.out.println("OUCH, curses.....");
                     wrath.addHealth(-1000000);
                     wrath.setBodyColor(Color.yellow);
-                    AudioPlayer.play("/snakegame/Raven-SoundBible.com-1790882934.wav");
+                    AudioPlayer.play("/snakegame/Raven.wav");
                     space.setLevel(Level.LEVEL_DEATH);
                 }
             } else {
@@ -270,10 +270,10 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
             for (int i = 0; i < barriers.size(); i++) {
                 if (barriers.get(i).getLocation().equals(wrath.getHead())) {
                     //put own logic here
-                    wrath.addHealth(-1000000000);
+                    wrath.setHealth(-1);
                     wrath.setBodyColor(Color.yellow);
                     space.setLevel(Level.LEVEL_DEATH);
-                    AudioPlayer.play("/snakegame/Raven-SoundBible.com-1790882934.wav");
+                    AudioPlayer.play("/snakegame/Raven.wav");
                 }
             }
         }
@@ -286,8 +286,12 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                     } else if (item.getType().equals(Item.ITEM_TYPE_INSTANT_DEATH)) {
                         wrath.setHealth(-1);
                         item.setX(-10000);
-                        AudioPlayer.play("/snakegame/electricity.wav");
+                        AudioPlayer.play("/snakegame/Raven.wav");
                         System.out.println("1_UP");
+                    } else if (item.getType().equals(Item.ITEM_TYPE_EXTRA_LIFE)) {
+                        wrath.addHealth(25);
+                    } else if (item.getType().equals(Item.ITEM_DELETE_ENEMY)) {
+                        System.out.println("enemy deleted");
                     }
 
                 }

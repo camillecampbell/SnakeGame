@@ -90,7 +90,7 @@ public class Snake {
     private ArrayList<Point> body;
     private Grid grid;
     private Color bodyColor = Color.MAGENTA;
-    private int health = 100;
+    public int health = 100;
 
     /**
      * @return the direction
