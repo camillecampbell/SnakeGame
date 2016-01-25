@@ -36,7 +36,7 @@ public class Health implements HealthProviderINTF{
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Properties">
-    public static int DEFAULT_MIN_HEALTH = 0;
+    public static int DEFAULT_MIN_HEALTH = -1;
     public static int DEFAULT_MAX_HEALTH = 100;
 
     private int value;

@@ -27,6 +27,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
     private ArrayList<Barrier> barriers;
     private Level space;
     private ArrayList<Item> items;
+    private ComponentDrawIntf bar;
 
     public GalaxyEnvironment() {
         this.setBackground((new Color(213, 213, 213)));
@@ -252,7 +253,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                 wrath.move();
                 if (wrath.selfHit()) {
                     //System.out.println("OUCH, curses.....");
-                    wrath.addHealth(-1000000);
+                    wrath.addHealth(-1);
                     wrath.setBodyColor(Color.yellow);
                     AudioPlayer.play("/snakegame/Raven.wav");
                     space.setLevel(Level.LEVEL_DEATH);
@@ -382,6 +383,9 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
             for (int i = 0; i < items.size(); i++) {
                 items.get(i).draw(graphics);
             }
+        }
+        if (bar != null) {
+            bar.draw(graphics);
         }
 
     }
