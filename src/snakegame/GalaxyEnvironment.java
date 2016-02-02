@@ -6,10 +6,13 @@
 package snakegame;
 
 import audio.AudioPlayer;
+import components.HealthBar;
+import components.HealthProviderIntf;
 import environment.Environment;
 import grid.Grid;
 import images.ResourceTools;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -20,14 +23,25 @@ import java.util.ArrayList;
  *
  * @author Camille
  */
-class GalaxyEnvironment extends Environment implements CellDataProviderintf {
+class GalaxyEnvironment extends Environment implements CellDataProviderintf, HealthProviderIntf {
 
     private Grid grid;
     private Snake wrath;
     private ArrayList<Barrier> barriers;
     private Level space;
     private ArrayList<Item> items;
-    private ComponentDrawIntf bar;
+    private HealthBar bar;
+    
+    private void setLevel(int level){
+        if (space == null) {
+            space = new Level(level);
+        }
+        
+        space.setLevel(level);
+        setUpGame();
+    }
+    
+    
 
     public GalaxyEnvironment() {
         this.setBackground((new Color(213, 213, 213)));
@@ -35,6 +49,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         grid = new Grid(55, 30, 20, 20, new Point(50, 100), new Color(46, 139, 87, 128));
         wrath = new Snake(Direction.RIGHT, grid);
         space = new Level(1);
+        bar = new HealthBar(new Point(500, 5), new Dimension(200, 25), this);
 
 //<editor-fold defaultstate="collapsed" desc="Top horrisontal barriers">
         barriers = new ArrayList<>();
@@ -218,19 +233,39 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         barriers.add(new Barrier(54, 0, Color.GRAY, true, this));
 //</editor-fold>
 
+        setUpGame();
+    }
+
+    public void setUpGame() {
+        //clear and set up the items
         items = new ArrayList<>();
-        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_TYPE_POWER_UP,
-                ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
-                this));
-        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_TYPE_EXTRA_LIFE,
+
+        //add PowerUps!! (dammit)
+        for (int i = 0; i < space.getPowerUpCount(); i++) {
+            items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_TYPE_POWER_UP,
+                    ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
+                    this));
+            
+        }
+        for (int i = 0; i < space.getExtraLifeCount(); i++) {
+        items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_TYPE_EXTRA_LIFE,
                 ResourceTools.loadImageFromResource("snakegame/1up.png"),
-                this));
-        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_TYPE_INSTANT_DEATH,
+                this));            
+        }
+        
+        
+        items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_TYPE_INSTANT_DEATH,
                 ResourceTools.loadImageFromResource("snakegame/star 2.png"),
                 this));
-        items.add(new Item((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()), Item.ITEM_DELETE_ENEMY,
+        items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_GROW_STRONG,
                 ResourceTools.loadImageFromResource("snakegame/bonbon1.gif-c200 2"),
                 this));
+
+    AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+ }
+
+    public int randomInt(int min, int max) {
+        return (int) (min + (Math.random() * (max - min)));
     }
 
     @Override
@@ -239,8 +274,23 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
     }
 //    int counter;
 
+    public static int MOVE_DELAY_EASY = 5;
+    public static int MOVE_DELAY_MEDIUM = 4;
+    public static int MOVE_DELAY_HARD = 2;
+    public static int MOVE_DELAY_INSANE = 1;
     int moveDelay = 0;
-    int moveDelayLimit = 3;
+    int moveDelayLimit = MOVE_DELAY_EASY;
+
+    int growthDelay = 0;
+    int growthDelayLimit = 5;
+
+    private Difficulty difficulty;
+
+    public static int GROWTH_COUNT_EASY = 2;
+    public static int GROWTH_COUNT_MEDIUM = 5;
+    public static int GROWTH_COUNT_HARD = 10;
+    public static int GROWTH_COUNT_INSANE = 15;
+    private int growthCount = GROWTH_COUNT_EASY;
 
     @Override
     public void timerTaskHandler() {
@@ -284,15 +334,22 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
                 if (item.getLocation().equals(wrath.getHead())) {
                     if (item.getType().equals(Item.ITEM_TYPE_POWER_UP)) {
                         //add points..
+                        item.setY((int) (Math.random() * grid.getRows()));
+                        item.setX((int) (Math.random() * grid.getColumns()));
                     } else if (item.getType().equals(Item.ITEM_TYPE_INSTANT_DEATH)) {
-                        wrath.setHealth(-1);
-                        item.setX(-10000);
+                        wrath.setHealth(wrath.getHealth() - 25);
+                        item.setX((int) (Math.random() * grid.getColumns()));
+                        item.setY((int) (Math.random() * grid.getRows()));
                         AudioPlayer.play("/snakegame/Raven.wav");
-                        System.out.println("1_UP");
                     } else if (item.getType().equals(Item.ITEM_TYPE_EXTRA_LIFE)) {
-                        wrath.addHealth(25);
-                    } else if (item.getType().equals(Item.ITEM_DELETE_ENEMY)) {
-                        System.out.println("enemy deleted");
+                        wrath.setHealth(wrath.getHealth() + 25);
+                        item.setX((int) (Math.random() * grid.getColumns()));
+                        item.setY((int) (Math.random() * grid.getRows()));
+                    } else if (item.getType().equals(Item.ITEM_GROW_STRONG)) {
+                        System.out.println("growing");
+                        wrath.addGrowth(growthCount);
+                        item.setX((int) (Math.random() * grid.getColumns()));
+                        item.setY((int) (Math.random() * grid.getRows()));
                     }
 
                 }
@@ -316,35 +373,25 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
             wrath.setDirection(Direction.RIGHT);
         } //<editor-fold defaultstate="collapsed" desc="Galaxy stuff">
         else if (e.getKeyCode() == KeyEvent.VK_1) {
-            space.setLevel(1);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(1);
         } else if (e.getKeyCode() == KeyEvent.VK_2) {
-            space.setLevel(2);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(2);
         } else if (e.getKeyCode() == KeyEvent.VK_3) {
-            space.setLevel(3);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(3);
         } else if (e.getKeyCode() == KeyEvent.VK_4) {
-            space.setLevel(4);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(4);
         } else if (e.getKeyCode() == KeyEvent.VK_5) {
-            space.setLevel(5);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(5);
         } else if (e.getKeyCode() == KeyEvent.VK_6) {
-            space.setLevel(6);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(6);
         } else if (e.getKeyCode() == KeyEvent.VK_7) {
-            space.setLevel(7);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(7);
         } else if (e.getKeyCode() == KeyEvent.VK_8) {
-            space.setLevel(8);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(8);
         } else if (e.getKeyCode() == KeyEvent.VK_9) {
-            space.setLevel(9);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(9);
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            space.setLevel(10);
-            AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
+            setLevel(10);
         }
 //</editor-fold>
     }
@@ -372,7 +419,11 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
         if (wrath != null) {
             wrath.draw(graphics);
 
+            if (bar != null) {
+                bar.draw(graphics);
+            }
         }
+
         if (barriers != null) {
             for (int i = 0; i < barriers.size(); i++) {
                 barriers.get(i).draw(graphics);
@@ -414,5 +465,56 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf {
 
     }
 //</editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="HealthProviderIntf">
+    @Override
+    public int getMinimumHealth() {
+        return 0;
+    }
+
+    @Override
+    public int getMaximumHealth() {
+        return 500;
+    }
+
+    @Override
+    public int getValue() {
+        return wrath.getHealth();
+    }
+
+    @Override
+    public double getFractionalHealth() {
+        return wrath.getHealth() / getMaximumHealth();
+    }
+
+    @Override
+    public double getPercentHealth() {
+        return ((wrath.getHealth() / getMaximumHealth()) * 100);
+    }
+//</editor-fold>
+
+    /**
+     * @return the difficulty
+     */
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    /**
+     * @param difficulty the difficulty to set
+     */
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+
+        if (difficulty == Difficulty.EASY) {
+            growthCount = GROWTH_COUNT_EASY;
+            moveDelayLimit = MOVE_DELAY_EASY;
+
+        } else if (difficulty == Difficulty.MEDIUM) {
+            growthCount = GROWTH_COUNT_MEDIUM;
+            moveDelayLimit = MOVE_DELAY_EASY;
+        }
+
+    }
 
 }

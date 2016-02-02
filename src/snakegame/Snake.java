@@ -69,7 +69,11 @@ public class Snake {
             body.add(HEAD_POSITION, newHead);
 
             //delete the tail
-            body.remove(body.size() - 1);
+            if (growthCounter > 0) {
+                growthCounter--;
+            } else {
+                body.remove(body.size() - 1);               
+            }
         }
     }
     
@@ -90,7 +94,8 @@ public class Snake {
     private ArrayList<Point> body;
     private Grid grid;
     private Color bodyColor = Color.MAGENTA;
-    public int health = 100;
+    public int health = 25;
+    private int growthCounter;
 
     /**
      * @return the direction
@@ -116,6 +121,10 @@ public class Snake {
     public Point getHead() {
         return body.get(HEAD_POSITION);
     }
+    
+//    public Point getTail() {
+//        return body.get(TAIL_POSITION);
+//    }
 
     public int getHealth() {
         return health;
@@ -131,6 +140,27 @@ public class Snake {
 
     public boolean isAlive() {
         return (health > 0);
+    }
+
+    /**
+     * @return the growthCounter
+     */
+    public int getGrowthCounter() {
+        return growthCounter;
+    }
+
+    /**
+     * @param growthCounter the growthCounter to set
+     */
+    public void setGrowthCounter(int growthCounter) {
+        this.growthCounter = growthCounter;
+    }
+    
+    /**
+     * @param growth the growthCounter to set
+     */
+    public void addGrowth(int growth) {
+        this.growthCounter += growth;
     }
     //</editor-fold>
 }

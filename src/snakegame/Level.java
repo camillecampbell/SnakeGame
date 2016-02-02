@@ -30,6 +30,112 @@ public class Level {
     } 
         
 
+    public int getPowerUpCount(){
+        switch (level){
+            default:
+            case 1:
+            case 2:
+            case 3:
+                return 4;
+                
+            case 4:
+                return 27;
+                
+            case 5:
+            case 6:
+                return 10;
+                
+            case 7:
+            case 8:
+            case 9:
+                return 5;
+                
+            case 10:
+                return 1;
+        }
+    }
+    
+    public int getExtraLifeCount(){
+        switch (level){
+            default:
+            case 1:
+                return 15;
+            case 2:
+            case 3:
+                return 4;
+                
+            case 4:
+                return 2;
+                
+            case 5:
+                return 7;
+            case 6:
+                return 17;
+                
+            case 7:
+            case 8:
+            case 9:
+                return 4;
+                
+            case 10:
+                return 1;
+        }
+    }
+    
+        public int getInstantDeathCount(){
+        switch (level){
+            default:
+            case 1:
+                return 0;
+            case 2:
+            case 3:
+                return 2;
+                
+            case 4:
+                return 5;
+                
+            case 5:
+            case 6:
+                return 10;
+                
+            case 7:
+            case 8:
+            case 9:
+                return 14;
+                
+            case 10:
+                return 1;
+        }
+    }
+        
+    public int getMoveDelay(){
+        switch (level){
+            default:
+            case 1:
+            case 2:
+            case 3:
+                return MOVE_DELAY_EASY;
+                
+            case 4:
+            case 5:
+            case 6:
+                return MOVE_DELAY_MEDIUM;
+                
+            case 7:
+            case 8:
+            case 9:
+                return MOVE_DELAY_HARD;
+                
+            case 10:
+                return MOVE_DELAY_INSANE;
+        }
+    }
+    
+    public static int MOVE_DELAY_EASY = 5;
+    public static int MOVE_DELAY_MEDIUM = 4;
+    public static int MOVE_DELAY_HARD = 2;
+    public static int MOVE_DELAY_INSANE = 1;
+    
     /**
      * @return the level
      */

@@ -38,7 +38,7 @@ public class Item {
     public static final String ITEM_TYPE_POWER_UP = "POWER_UP";
     public static final String ITEM_TYPE_INSTANT_DEATH = "INSTANT_DEATH";
     public static final String ITEM_TYPE_EXTRA_LIFE = "EXTRA_LIFE";
-    public static final String ITEM_DELETE_ENEMY = "DELETE_ENEMY";
+    public static final String ITEM_GROW_STRONG = "DELETE_ENEMY";
 
     
     
