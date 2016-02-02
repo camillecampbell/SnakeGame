@@ -51,7 +51,7 @@ public class Level {
                 return 5;
                 
             case 10:
-                return 1;
+                return 6;
         }
     }
     
@@ -95,6 +95,7 @@ public class Level {
                 return 5;
                 
             case 5:
+                return 19;
             case 6:
                 return 10;
                 
@@ -104,7 +105,7 @@ public class Level {
                 return 14;
                 
             case 10:
-                return 1;
+                return 17;
         }
     }
         
@@ -130,6 +131,34 @@ public class Level {
                 return MOVE_DELAY_INSANE;
         }
     }
+            public int getGrowStrongCount(){
+        switch (level){
+            default:
+            case 1:
+                return 2;
+            case 2:
+            case 3:
+                return 4;
+                
+            case 4:
+                return 5;
+                
+            case 5:
+            case 6:
+                return 10;
+                
+            case 7:
+                return 5;
+            case 8:
+                return 21;
+            case 9:
+                return 7;
+                
+            case 10:
+                return 11;
+        }
+    }
+        
     
     public static int MOVE_DELAY_EASY = 5;
     public static int MOVE_DELAY_MEDIUM = 4;

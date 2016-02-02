@@ -242,25 +242,30 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
 
         //add PowerUps!! (dammit)
         for (int i = 0; i < space.getPowerUpCount(); i++) {
-            items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_TYPE_POWER_UP,
+            items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_TYPE_POWER_UP,
                     ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                     this));
             
         }
         for (int i = 0; i < space.getExtraLifeCount(); i++) {
-        items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_TYPE_EXTRA_LIFE,
+        items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_TYPE_EXTRA_LIFE,
                 ResourceTools.loadImageFromResource("snakegame/1up.png"),
                 this));            
         }
         
-        
-        items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_TYPE_INSTANT_DEATH,
+        for (int i = 0; i < space.getInstantDeathCount(); i++) {
+        items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_TYPE_INSTANT_DEATH,
                 ResourceTools.loadImageFromResource("snakegame/star 2.png"),
-                this));
-        items.add(new Item(randomInt(1, grid.getColumns()), randomInt(1, grid.getRows()), Item.ITEM_GROW_STRONG,
-                ResourceTools.loadImageFromResource("snakegame/bonbon1.gif-c200 2"),
+                this));            
+        }
+        
+        for (int i = 0; i < space.getGrowStrongCount(); i++) {
+        items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_GROW_STRONG,
+                ResourceTools.loadImageFromResource("snakegamE/bonbon1.gif-c200 2"),
                 this));
 
+        }
+        
     AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
  }
 
@@ -282,13 +287,13 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     int moveDelayLimit = MOVE_DELAY_EASY;
 
     int growthDelay = 0;
-    int growthDelayLimit = 5;
+    int growthDelayLimit = GROWTH_COUNT_INSANE;
 
     private Difficulty difficulty;
 
-    public static int GROWTH_COUNT_EASY = 2;
-    public static int GROWTH_COUNT_MEDIUM = 5;
-    public static int GROWTH_COUNT_HARD = 10;
+    public static int GROWTH_COUNT_EASY = 1;
+    public static int GROWTH_COUNT_MEDIUM = 3;
+    public static int GROWTH_COUNT_HARD = 7;
     public static int GROWTH_COUNT_INSANE = 15;
     private int growthCount = GROWTH_COUNT_EASY;
 
@@ -303,7 +308,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
                 wrath.move();
                 if (wrath.selfHit()) {
                     //System.out.println("OUCH, curses.....");
-                    wrath.addHealth(-1);
+                    wrath.setHealth(-1);
                     wrath.setBodyColor(Color.yellow);
                     AudioPlayer.play("/snakegame/Raven.wav");
                     space.setLevel(Level.LEVEL_DEATH);
@@ -321,7 +326,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
             for (int i = 0; i < barriers.size(); i++) {
                 if (barriers.get(i).getLocation().equals(wrath.getHead())) {
                     //put own logic here
-                    wrath.setHealth(-1);
+                    wrath.setHealth(wrath.getHealth() - wrath.getHealth());
                     wrath.setBodyColor(Color.yellow);
                     space.setLevel(Level.LEVEL_DEATH);
                     AudioPlayer.play("/snakegame/Raven.wav");
@@ -484,12 +489,12 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
 
     @Override
     public double getFractionalHealth() {
-        return wrath.getHealth() / getMaximumHealth();
+        return (1.0 * wrath.getHealth() / getMaximumHealth());
     }
 
     @Override
     public double getPercentHealth() {
-        return ((wrath.getHealth() / getMaximumHealth()) * 100);
+        return ((100.0 * wrath.getHealth() / getMaximumHealth()));
     }
 //</editor-fold>
 
