@@ -158,7 +158,7 @@ public class Level {
                 return 4;
         }
     }
-        
+           
     
     public static int MOVE_DELAY_EASY = 5;
     public static int MOVE_DELAY_MEDIUM = 4;

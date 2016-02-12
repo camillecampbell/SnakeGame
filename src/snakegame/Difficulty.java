@@ -10,5 +10,5 @@ package snakegame;
  * @author Camille
  */
 public enum Difficulty {
-     VERY_EASY, EASY, MEDIUM, MEDIUM_HARD, HARD, VERY_HARD, EXTREME, REDICLOUS, INSANE, YOU_ARE_KIDDING_ME_BRO
+    EASY, MEDIUM, HARD, INSANE
 }
