@@ -242,29 +242,30 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
 
         //add PowerUps!! (dammit)
         for (int i = 0; i < space.getPowerUpCount(); i++) {
-            items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_TYPE_POWER_UP,
+            items.add(new Item(randomInt(1, grid.getColumns() -1), randomInt(1, grid.getRows() -1), Item.ITEM_TYPE_POWER_UP,
                     ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
                     this));
             
         }
         for (int i = 0; i < space.getExtraLifeCount(); i++) {
-        items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_TYPE_EXTRA_LIFE,
+        items.add(new Item(randomInt(1, grid.getColumns() -1), randomInt(1, grid.getRows() -1), Item.ITEM_TYPE_EXTRA_LIFE,
                 ResourceTools.loadImageFromResource("snakegame/1up.png"),
                 this));            
         }
         
         for (int i = 0; i < space.getInstantDeathCount(); i++) {
-        items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_TYPE_INSTANT_DEATH,
+        items.add(new Item(randomInt(1, grid.getColumns() -1), randomInt(1, grid.getRows() -1), Item.ITEM_TYPE_INSTANT_DEATH,
                 ResourceTools.loadImageFromResource("snakegame/star 2.png"),
                 this));            
         }
         
         for (int i = 0; i < space.getGrowStrongCount(); i++) {
-        items.add(new Item(randomInt(2, grid.getColumns()) -3, randomInt(2, grid.getRows()) -3, Item.ITEM_GROW_STRONG,
+        items.add(new Item(randomInt(1, grid.getColumns() -1), randomInt(1, grid.getRows() -1), Item.ITEM_GROW_STRONG,
                 ResourceTools.loadImageFromResource("snakegamE/bonbon1.gif-c200 2"),
                 this));
 
         }
+        //Set the move delay limit and growth limit
         
     AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
  }
@@ -286,8 +287,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     int moveDelay = 0;
     int moveDelayLimit = MOVE_DELAY_EASY;
 
-    int growthDelay = 0;
-    int growthDelayLimit = GROWTH_COUNT_INSANE;
+
 
     private Difficulty difficulty;
 
@@ -295,8 +295,9 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     public static int GROWTH_COUNT_MEDIUM = 3;
     public static int GROWTH_COUNT_HARD = 7;
     public static int GROWTH_COUNT_INSANE = 15;
-    private int growthCount = GROWTH_COUNT_EASY;
-
+    int growthDelay = 0;
+    int growthDelayLimit = GROWTH_COUNT_INSANE;
+    int growthCount = GROWTH_COUNT_EASY;
     @Override
     public void timerTaskHandler() {
 //        System.out.println("Ready to take snakes to space?" + ++counter)
@@ -339,22 +340,24 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
                 if (item.getLocation().equals(wrath.getHead())) {
                     if (item.getType().equals(Item.ITEM_TYPE_POWER_UP)) {
                         //add points..
-                        item.setY((int) (Math.random() * grid.getRows()));
-                        item.setX((int) (Math.random() * grid.getColumns()));
+                        item.setY(randomInt(1, grid.getRows()-1));
+                        item.setX(randomInt(1, grid.getColumns()-1));
+                        AudioPlayer.play("/snakegame/Shooting_Star");
                     } else if (item.getType().equals(Item.ITEM_TYPE_INSTANT_DEATH)) {
                         wrath.setHealth(wrath.getHealth() - 25);
-                        item.setX((int) (Math.random() * grid.getColumns()));
-                        item.setY((int) (Math.random() * grid.getRows()));
-                        AudioPlayer.play("/snakegame/Raven.wav");
+                        item.setX(randomInt(1, grid.getRows()-1));
+                        item.setY(randomInt(1, grid.getColumns()-1));
+                        AudioPlayer.play("/snakegame/Shooting_Star");
                     } else if (item.getType().equals(Item.ITEM_TYPE_EXTRA_LIFE)) {
                         wrath.setHealth(wrath.getHealth() + 25);
-                        item.setX((int) (Math.random() * grid.getColumns()));
-                        item.setY((int) (Math.random() * grid.getRows()));
+                        item.setX(randomInt(1, grid.getRows()-1));
+                        item.setY(randomInt(1, grid.getColumns()-1));
+                        AudioPlayer.play("/snakegame/Shooting_Star");
                     } else if (item.getType().equals(Item.ITEM_GROW_STRONG)) {
-                        System.out.println("growing");
                         wrath.addGrowth(growthCount);
-                        item.setX((int) (Math.random() * grid.getColumns()));
-                        item.setY((int) (Math.random() * grid.getRows()));
+                        item.setX(randomInt(1, grid.getRows()-1));
+                        item.setY(randomInt(1, grid.getColumns()-1));
+                        AudioPlayer.play("/snakegame/Shooting_Star");
                     }
 
                 }

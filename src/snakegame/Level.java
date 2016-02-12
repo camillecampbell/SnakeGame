@@ -105,10 +105,10 @@ public class Level {
                 return 14;
                 
             case 10:
-                return 17;
+                return 70;
         }
     }
-        
+       //This is currently not working... BLEH 
     public int getMoveDelay(){
         switch (level){
             default:
@@ -155,7 +155,7 @@ public class Level {
                 return 7;
                 
             case 10:
-                return 11;
+                return 4;
         }
     }
         
