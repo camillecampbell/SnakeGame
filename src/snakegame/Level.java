@@ -108,7 +108,7 @@ public class Level {
                 return 70;
         }
     }
-       //This is currently not working... BLEH 
+       //This is currently working :)
     public int getMoveDelay(){
         switch (level){
             default:
@@ -158,13 +158,41 @@ public class Level {
                 return 4;
         }
     }
-           
+                   //This is not currently working :(
+    public int getGrowthCount(){
+        switch (level){
+            default:
+            case 1:
+            case 2:
+            case 3:
+                return GROWTH_COUNT_EASY;
+                
+            case 4:
+            case 5:
+            case 6:
+                return GROWTH_COUNT_MEDIUM;
+                
+            case 7:
+            case 8:
+            case 9:
+                return GROWTH_COUNT_HARD;
+                
+            case 10:
+                return GROWTH_COUNT_INSANE;
+        }
+    }
+    
+    
     
     public static int MOVE_DELAY_EASY = 5;
     public static int MOVE_DELAY_MEDIUM = 4;
     public static int MOVE_DELAY_HARD = 2;
     public static int MOVE_DELAY_INSANE = 1;
     
+    public static int GROWTH_COUNT_EASY = 1;
+    public static int GROWTH_COUNT_MEDIUM = 3;
+    public static int GROWTH_COUNT_HARD = 7;
+    public static int GROWTH_COUNT_INSANE = 15;
     /**
      * @return the level
      */

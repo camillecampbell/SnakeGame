@@ -32,6 +32,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     private Level space;
     private ArrayList<Item> items;
     private HealthBar bar;
+    private MySoundManager soundManager;
 
     private void setLevel(int level) {
         if (space == null) {
@@ -109,6 +110,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
         barriers.add(new Barrier(54, 0, Color.GRAY, true, this));
 
 //</editor-fold>
+        
 //<editor-fold defaultstate="collapsed" desc="Left Vertical barriers">
         barriers.add(new Barrier(0, 1, Color.GRAY, true, this));
         barriers.add(new Barrier(0, 2, Color.GRAY, true, this));
@@ -233,13 +235,15 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
 //</editor-fold>
 
         setUpGame();
+        //setUpSound();
+        soundManager = MySoundManager.getSoundManager();
     }
 
     public void setUpGame() {
         //clear and set up the items
         items = new ArrayList<>();
 
-        //add PowerUps!! (dammit)
+        //add PowerUps!
         for (int i = 0; i < space.getPowerUpCount(); i++) {
             items.add(new Item(randomInt(1, grid.getColumns() - 1), randomInt(1, grid.getRows() - 1), Item.ITEM_TYPE_POWER_UP,
                     ResourceTools.loadImageFromResource("snakegame/Candy! 2.gif"),
@@ -260,12 +264,17 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
 
         for (int i = 0; i < space.getGrowStrongCount(); i++) {
             items.add(new Item(randomInt(1, grid.getColumns() - 1), randomInt(1, grid.getRows() - 1), Item.ITEM_GROW_STRONG,
-                    ResourceTools.loadImageFromResource("snakegamE/bonbon1.gif-c200 2"),
+                    ResourceTools.loadImageFromResource("snakegamE/BonBon.gif"),
                     this));
 
         }
-        //Set the move delay limit and growth limit
+        //Set the move delay limit and growth abilities
+        moveDelayLimit = space.getMoveDelay();
+        growthCount = space.getGrowthCount();
+        
 
+        
+        
         AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
     }
 
