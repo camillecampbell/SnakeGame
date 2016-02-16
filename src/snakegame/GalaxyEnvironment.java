@@ -37,11 +37,28 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     private int score;
 
     private void setLevel(int level) {
+        
         if (space == null) {
             space = new Level(level);
         }
 
+        //shut off the sound from the level that the we are LEAVING 
+        if (space.getLevel() == 1) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+        } else if (space.getLevel() == 2) {
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+        } 
+
+        //change the level
         space.setLevel(level);
+        
+        //now, start the song for the NEW level
+        if (space.getLevel() == 1) {
+            soundManager.play(MySoundManager.FIRST_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 2) {
+            soundManager.play(MySoundManager.SECOND_LEVEL_SONG, -1);
+        } 
+        
         setUpGame();
     }
 
@@ -296,17 +313,17 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     public void initializeEnvironment() {
 
     }
-//    int counter;
 
+//<editor-fold defaultstate="collapsed" desc="Timer Stuff">
     public static int MOVE_DELAY_EASY = 5;
     public static int MOVE_DELAY_MEDIUM = 4;
     public static int MOVE_DELAY_HARD = 2;
     public static int MOVE_DELAY_INSANE = 1;
     int moveDelay = 0;
     int moveDelayLimit = MOVE_DELAY_EASY;
-
+    
     private Difficulty difficulty;
-
+    
     public static int GROWTH_COUNT_EASY = 1;
     public static int GROWTH_COUNT_MEDIUM = 3;
     public static int GROWTH_COUNT_HARD = 7;
@@ -314,11 +331,11 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
     int growthDelay = 0;
     int growthDelayLimit = GROWTH_COUNT_INSANE;
     int growthCount = GROWTH_COUNT_EASY;
-
+    
     @Override
     public void timerTaskHandler() {
 //        System.out.println("Ready to take snakes to space?" + ++counter)
-
+        
         if (wrath != null) {
             // if counted to the limit, then move snake and reset the counter, else keep on counting
             if (moveDelay >= moveDelayLimit) {
@@ -336,9 +353,9 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
             }
             checkIntersections();
         }
-
+        
     }
-
+    
     public void checkIntersections() {
         if (barriers != null) {
             for (int i = 0; i < barriers.size(); i++) {
@@ -351,7 +368,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
                 }
             }
         }
-
+        
         if (items != null) {
             for (Item item : items) {
                 if (item.getLocation().equals(wrath.getHead())) {
@@ -365,22 +382,24 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
                     } else if (item.getType().equals(Item.ITEM_GROW_STRONG)) {
                         wrath.addGrowth(growthCount);
                     }
-
+                    
                     score += item.getValue();
                     item.setLocation(randomGridLocation());
                     AudioPlayer.play("/snakegame/Shooting_Star");
-
+                    
                 }
             }
         }
-
+        
     }
-
+//</editor-fold>
+    
+//<editor-fold defaultstate="collapsed" desc="Key and Mouse Stuff">
     @Override
     public void keyPressedHandler(KeyEvent e) {
 //        System.out.println("Key Press" + e.getKeyChar());
 //        System.out.println("Key Press" + e.getKeyCode());
-
+        
         if (e.getKeyCode() == KeyEvent.VK_W) {
             wrath.setDirection(Direction.UP);
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
@@ -412,18 +431,21 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
             setLevel(10);
         }
 //</editor-fold>
+        
+        
     }
-
+    
     @Override
     public void keyReleasedHandler(KeyEvent e) {
-
+        
     }
-
+    
     @Override
     public void environmentMouseClicked(MouseEvent e) {
-
+        
     }
-
+//</editor-fold>
+    
     @Override
     public void paintEnvironment(Graphics graphics) {
         if (space != null) {
