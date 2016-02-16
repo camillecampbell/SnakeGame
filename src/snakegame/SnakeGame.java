@@ -6,6 +6,7 @@
 package snakegame;
 
 import environment.ApplicationStarter;
+import java.awt.Dimension;
 
 /**
  *
@@ -17,8 +18,7 @@ public class SnakeGame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ApplicationStarter.run("Space Snakes", new GalaxyEnvironment());
-
+        ApplicationStarter.run(new String[0], "Space Snakes", new Dimension(2500, 1550), new GalaxyEnvironment());
     }
 
 }
