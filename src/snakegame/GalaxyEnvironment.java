@@ -433,6 +433,7 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
         //Set the move delay limit and growth abilities
         moveDelayLimit = space.getMoveDelay();
         growthCount = space.getGrowthCount();
+        space.setLevel(1);
         space.getLevel();
 
         AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
