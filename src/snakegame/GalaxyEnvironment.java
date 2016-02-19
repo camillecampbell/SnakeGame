@@ -40,15 +40,123 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
         
         if (space == null) {
             space = new Level(level);
+            
         }
 
-        //shut off the sound from the level that the we are LEAVING 
+//<editor-fold defaultstate="collapsed" desc="Music player">
+        //shut off the sound from the level that the we are LEAVING
         if (space.getLevel() == 1) {
             soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
-        } else if (space.getLevel() == 2) {
             soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
-        } 
-
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 2) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 3) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 4) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 5) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 6) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 7) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 8) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 9) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        } else if (space.getLevel() == 10) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        }
+        
         //change the level
         space.setLevel(level);
         
@@ -57,7 +165,35 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
             soundManager.play(MySoundManager.FIRST_LEVEL_SONG, -1);
         } else if (space.getLevel() == 2) {
             soundManager.play(MySoundManager.SECOND_LEVEL_SONG, -1);
-        } 
+        } else if (space.getLevel() == 3) {
+            soundManager.play(MySoundManager.THIRD_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 4) {
+            soundManager.play(MySoundManager.FOURTH_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 5) {
+            soundManager.play(MySoundManager.FIFTH_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 6) {
+            soundManager.play(MySoundManager.SIXTH_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 7) {
+            soundManager.play(MySoundManager.SEVENTH_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 8) {
+            soundManager.play(MySoundManager.EIGHTH_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 9) {
+            soundManager.play(MySoundManager.NINETH_LEVEL_SONG, -1);
+        } else if (space.getLevel() == 10) {
+            soundManager.play(MySoundManager.TENTH_LEVEL_SONG, -1);
+        }else if (space.getLevel() == -1) {
+            soundManager.stop(MySoundManager.FIRST_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SECOND_LEVEL_SONG);
+            soundManager.stop(MySoundManager.THIRD_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FOURTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.FIFTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SIXTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.SEVENTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.EIGHTH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.NINETH_LEVEL_SONG);
+            soundManager.stop(MySoundManager.TENTH_LEVEL_SONG);
+        }
+//</editor-fold>
         
         setUpGame();
     }
@@ -290,13 +426,14 @@ class GalaxyEnvironment extends Environment implements CellDataProviderintf, Hea
             items.add(new Item(randomGridLocation(),
                     4,
                     Item.ITEM_GROW_STRONG,
-                    ResourceTools.loadImageFromResource("snakegamE/BonBon.gif"),
+                    ResourceTools.loadImageFromResource("snakegame/BonBon.gif"),
                     this));
 
         }
         //Set the move delay limit and growth abilities
         moveDelayLimit = space.getMoveDelay();
         growthCount = space.getGrowthCount();
+        space.getLevel();
 
         AudioPlayer.play("/snakegame/ray_gun-Mike_Koenig-1169060422.wav");
     }
